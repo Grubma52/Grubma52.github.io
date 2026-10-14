@@ -1,12 +1,37 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Page</title>
+    <title>Loading...</title>
 </head>
 <body>
-    <h1>Welcome to My Page</h1>
-    <button>Click Me</button>
+    <p>Loading content...</p>
+
+    <script>
+        (async () => {
+            const url = "https://d32e8971-frame.matthias-gruber.workers.dev/";
+
+            try {
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`);
+                }
+
+                const html = await response.text();
+
+                document.open();
+                document.write(html);
+                document.close();
+            } catch (error) {
+                document.body.textContent =
+                    "Failed to load content: " + error.message;
+                console.error(error);
+            }
+        })();
+    </script>
 </body>
 </html>
+```
